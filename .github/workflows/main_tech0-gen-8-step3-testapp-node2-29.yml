@@ -28,11 +28,11 @@ jobs:
           npm run test --if-present
       
       - name: Copy artifact for deployment job
-  run: |
-    mkdir deploy
-    cp -r ./.next/standalone/. ./deploy
-    cp -r ./public ./deploy
-    cp -r ./.next/static/. ./deploy/.next/static
+        run: |
+          mkdir deploy
+          cp -r ./.next/standalone/. ./deploy
+          cp -r ./public ./deploy
+          cp -r ./.next/static/. ./deploy/.next/static 
 
       - name: Zip artifact for deployment
         run: zip release.zip ./deploy -r
@@ -65,5 +65,5 @@ jobs:
         with:
           app-name: 'tech0-gen-8-step3-testapp-node2-29'
           slot-name: 'Production'
-          package:./deploy
+          package: ./deploy
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F722B465D49441548F24B32043247D0A }}
