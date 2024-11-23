@@ -6,11 +6,10 @@ export default function Home() {
   const [getResponse, setGetResponse] = useState('');
 
   const handleGetRequest = async () => {
-    const res = await fetch('http://localhost:5000/api/hello', {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/hello`, {
       method: 'GET',
     });
     const data = await res.json();
-
 
     // GETリクエストの結果をコンソールに表示
     console.log("GETリクエストの結果:", data.message);
@@ -26,7 +25,7 @@ export default function Home() {
   const handleIdRequest = async (e) => {
     e.preventDefault();
 
-    const res = await fetch(`http://localhost:5000/api/multiply/${id}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/multiply/${id}`, {
       method: 'GET',
     });
     const data = await res.json();
@@ -47,15 +46,15 @@ export default function Home() {
     //入力されたデータをコンソールに表示
     console.log("入力情報:", input);
 
-    const res = await fetch('http://localhost:5000/api/echo', {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/echo`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ "message":input }),
+      body: JSON.stringify({ message: input }),
 
     });
-    console.log(JSON.stringify({ "message":input }));
+    console.log(JSON.stringify({ message: input }));
     const data = await res.json();
 
     //バックエンドからのレスポンスをコンソールに表示
@@ -63,7 +62,6 @@ export default function Home() {
 
     setPostResponse(data.message);
   };
-
 
   return (
     <div>
@@ -91,11 +89,9 @@ export default function Home() {
         <input
           type="text"
           value={input}
-
           onChange={(e) => setInput(e.target.value)}
           placeholder="テキストを入力してください"
         />
-
         <button type="submit">送信</button>
       </form>
       {postResponse && <p>FlaskからのPOST応答: {postResponse}</p>}
